@@ -1,0 +1,18 @@
+{
+  "scraped_date": "2026-09-09",
+  "rows_processed": 39382,
+  "input": "data_with_urls.xlsx",
+  "output": "full_run3.xlsx",
+  "workers": 60,
+  "elapsed_seconds": 79334.9,
+  "avg_seconds_per_row": 2.01,
+  "project_total_rows": 43548,
+  "projected_full_run_hours": 24.4,
+  "time_by_method_seconds": {
+    "search": 0.0,
+    "crawl": 4256024.7,
+    "site_search": 427073.2,
+    "extract": 23654.0,
+    "verify": 8325.0
+  }
+}
