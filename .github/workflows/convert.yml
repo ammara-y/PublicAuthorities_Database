@@ -1,35 +1,32 @@
 name: Convert Excel to Datasette
-
 on:
   push:
     paths:
       - 'data.xlsx'   # only runs when you push a new xlsx, not on every commit
-
 jobs:
   convert:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
-        run: pip install xlsx2csv csvs-to-sqlite
-
+        run: pip install pandas openpyxl csvs-to-sqlite
       - name: Convert xlsx → csv
-        run: python -m xlsx2csv data.xlsx data.csv
-
+        run: |
+          python -c "
+          import pandas as pd
+          df = pd.read_excel('data.xlsx')
+          df.to_csv('data.csv', index=False)
+          "
       - name: Convert csv → sqlite
         run: |
           csvs-to-sqlite data.csv data.db \
             --fts name \
             --fts notes
-
       - name: Commit and push data.db
         run: |
           git config user.name "github-actions[bot]"
